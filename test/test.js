@@ -100,11 +100,11 @@ describe("Node Server Request Listener Function", function() {
 
 describe("html fetcher helpers", function(){
 
-  xit("should have a 'readListOfUrls' function", function(){
+  it("should have a 'readListOfUrls' function", function(){
     expect(typeof archive.readListOfUrls).to.equal('function');
   });
 
-  xit("should read urls from sites.txt", function(done){
+  it("should read urls from sites.txt", function(done){
     var urlArray = ["example1.com", "example2.com"];
     var resultArray;
 
@@ -121,7 +121,7 @@ describe("html fetcher helpers", function(){
     });
   });
 
-  xit("should have a 'downloadUrls' function", function(){
+  it("should have a 'downloadUrls' function", function(){
     expect(typeof archive.downloadUrls).to.equal('function');
   });
 

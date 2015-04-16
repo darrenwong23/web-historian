@@ -25,7 +25,16 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function(){
+exports.readListOfUrls = function(callback){
+
+  var resultArray = (fs.readFileSync(exports.paths.list, 'utf8')).split('\n');
+  console.log(resultArray);
+  //read from sites.txt
+  //
+  //.split("\n")
+  //
+  //put resultArray and
+  callback(resultArray);
 };
 
 exports.isUrlInList = function(){
@@ -38,4 +47,5 @@ exports.isURLArchived = function(){
 };
 
 exports.downloadUrls = function(){
+  return (fs.readFileSync(exports.paths.list, 'utf8')).split('\n');
 };

@@ -17,15 +17,9 @@ var routes = {
 };
 
 exports.handleRequest = function (req, res) {
-
-
-  console.log("req.url" + req.url);
   var route = routes[req.url];
   var status = 200;
   if(req.method === 'POST') {
-
-    // routes[req.url] = archive.paths.archivedSites + req.url;
-    // route = routes[req.url];
     console.log(archive.paths.list);
     var fd = fs.openSync(archive.paths.list,"w");
     fs.closeSync(fd);
@@ -33,18 +27,16 @@ exports.handleRequest = function (req, res) {
 
     status = 302;
   }
-  if(!route){
-    res.writeHead(404, null);
-    res.end();
-  }
-
-  fs.exists(route, function(exists){
-
-    if(exists) {
+  if( !route ){
+    utils.sendResponse(res, "Not Found", 404);
+  } else {
+    fs.exists(route, function(exists){
+      if(exists) {
         fs.readFile(route, function(error, content) {
           res.writeHead(status, null);
           res.end(content, 'utf-8');
-      });
-    }
-  });
+        });
+      }
+    });
+  }
 };
