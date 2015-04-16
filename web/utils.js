@@ -10,7 +10,6 @@ var headers = {
 };
 
 exports.sendResponse = function(res, data, statusCode){
-  console.log(data);
   statusCode = statusCode || 200;
   res.writeHead(statusCode, headers);
   res.end(data);
