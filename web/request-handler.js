@@ -20,12 +20,18 @@ exports.handleRequest = function (req, res) {
   var route = routes[req.url];
   var status = 200;
   if(req.method === 'POST') {
-    console.log(archive.paths.list);
-    var fd = fs.openSync(archive.paths.list,"w");
-    fs.closeSync(fd);
-    fs.writeFileSync(archive.paths.list, req._postData.url + '\n');
+    var str = '';
+    req.on('data', function (chunk) {
+      str += chunk;
+     });
 
-    status = 302;
+    req.on('end', function () {
+      var url = str.slice(4)
+      fs.writeFileSync(archive.paths.list, url + '\n',{flag:"a"});
+      routes["/" + url] = archive.paths.archivedSites + "/" + url
+      console.log(routes);
+      status = 302;
+    });
   }
   if( !route ){
     utils.sendResponse(res, "Not Found", 404);
